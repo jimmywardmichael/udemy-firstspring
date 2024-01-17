@@ -1,13 +1,13 @@
-package com.example.FirstSpring;
+package com.employee.EmployeeApplication;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FirstSpringApplication {
+public class EmployeeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FirstSpringApplication.class, args);
+		SpringApplication.run(EmployeeApplication.class, args);
 	}
 
 }
