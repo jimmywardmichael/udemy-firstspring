@@ -20,11 +20,13 @@ public class EmployeeService {
        @Autowired
        EmployeeRepository employeeRepository;
        public List<Employee> getAllEmployees(){
-        return employeeList;
+//        return employeeList;
+           return employeeRepository.findAll(); //returns list of all employees
     }
     public Employee getAnEmployee(int id){
-           return employeeList.stream().filter(e -> (
-                   e.getEmployeeId() == id)).findFirst().get();
+//           return employeeList.stream().filter(e -> (
+//                   e.getEmployeeId() == id)).findFirst().get();
+        return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
     }
 //Getting the employee object from the class
     public void createEmployee(Employee employee){
@@ -33,25 +35,27 @@ public class EmployeeService {
     }
     //update employee record
     public void updateEmployee(Employee employee){
-          List<Employee> tempEmployee = new ArrayList<>();
-          for (Employee emp : employeeList){
-              if (emp.getEmployeeId() == employee.getEmployeeId()){
-                  emp.setEmployeeName(employee.getEmployeeName());
-                  emp.setEmployeeCity(employee.getEmployeeCity());
-              }
-              tempEmployee.add(emp);
-          }
-          this.employeeList = tempEmployee;
+//          List<Employee> tempEmployee = new ArrayList<>();
+//          for (Employee emp : employeeList){
+//              if (emp.getEmployeeId() == employee.getEmployeeId()){
+//                  emp.setEmployeeName(employee.getEmployeeName());
+//                  emp.setEmployeeCity(employee.getEmployeeCity());
+//              }
+//              tempEmployee.add(emp);
+//          }
+//          this.employeeList = tempEmployee;
+        employeeRepository.save(employee);
     }
 
     //delete an employee
     public void deleteEmployee(int id) {
-           ArrayList<Employee> tempEmployee = new ArrayList<>();
-           for (Employee emp : employeeList){
-               if(emp.getEmployeeId() == id)
-                   continue;
-               tempEmployee.add(emp);
-           }
-           this.employeeList = tempEmployee;
+//           ArrayList<Employee> tempEmployee = new ArrayList<>();
+//           for (Employee emp : employeeList){
+//               if(emp.getEmployeeId() == id)
+//                   continue;
+//               tempEmployee.add(emp);
+//           }
+//           this.employeeList = tempEmployee;
+        employeeRepository.delete(employeeRepository.getReferenceById(id));
     }
 }
