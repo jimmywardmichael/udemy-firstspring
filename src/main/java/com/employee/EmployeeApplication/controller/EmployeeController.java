@@ -16,7 +16,6 @@ public class EmployeeController {
     //Autowired checks employee if has dependency then injects it and creates instance
     @RequestMapping("/employees")
     public List<Employee> findAllEmployees(){
-
         return employeeService.getAllEmployees();
     }
 
