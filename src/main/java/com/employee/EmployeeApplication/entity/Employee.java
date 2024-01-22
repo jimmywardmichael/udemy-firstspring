@@ -9,13 +9,18 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 int employeeId;
-String employeeName;
-String employeeCity;
+private String employeeName;
+private String employeeCity;
 @OneToOne//create one to one mapping between employee and spouse
 @JoinColumn(name = "fk_spouse")
 private Spouse spouse;
 @OneToMany
 private List<Address> addresses;
+@ManyToMany
+@JoinTable(name = "employee_project" ,
+        joinColumns = @JoinColumn(name = "fk_employee"),
+        inverseJoinColumns = @JoinColumn(name = "fk_project"))
+private List<Project> projects;
 
 
     public Spouse getSpouse() {
@@ -66,5 +71,13 @@ private List<Address> addresses;
 
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
+    }
+     public void removeProject(Project project){
+        this.projects.remove(project);
+        project.getEmployees().remove(project);
+    }
+    public void addProject(Project project){
+        this.projects.add(project);
+        project.getEmployees().add(this);
     }
 }
