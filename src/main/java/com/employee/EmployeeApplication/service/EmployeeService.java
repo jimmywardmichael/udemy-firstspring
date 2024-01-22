@@ -1,6 +1,7 @@
 package com.employee.EmployeeApplication.service;
 
 
+import com.employee.EmployeeApplication.entity.Address;
 import com.employee.EmployeeApplication.entity.Employee;
 import com.employee.EmployeeApplication.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,32 +31,26 @@ public class EmployeeService {
     }
 //Getting the employee object from the class
     public void createEmployee(Employee employee){
-           //employeeList.add(employee);
+           ArrayList<Address> addressArrayList = new ArrayList<>();
+
+           for (Address address : employee.getAddresses()) {
+             addressArrayList.add((new Address(address.getLine1(),
+                     address.getLine2(), address.getZipcode(), address.getCity(), address.getState(),
+                     address.getCountry(), employee)));
+           }
+           employee.setAddresses(addressArrayList);
+
         employeeRepository.save(employee);//saves to jpa repo
     }
     //update employee record
     public void updateEmployee(Employee employee){
-//          List<Employee> tempEmployee = new ArrayList<>();
-//          for (Employee emp : employeeList){
-//              if (emp.getEmployeeId() == employee.getEmployeeId()){
-//                  emp.setEmployeeName(employee.getEmployeeName());
-//                  emp.setEmployeeCity(employee.getEmployeeCity());
-//              }
-//              tempEmployee.add(emp);
-//          }
-//          this.employeeList = tempEmployee;
+
         employeeRepository.save(employee);
     }
 
     //delete an employee
     public void deleteEmployee(int id) {
-//           ArrayList<Employee> tempEmployee = new ArrayList<>();
-//           for (Employee emp : employeeList){
-//               if(emp.getEmployeeId() == id)
-//                   continue;
-//               tempEmployee.add(emp);
-//           }
-//           this.employeeList = tempEmployee;
+
         employeeRepository.delete(employeeRepository.getReferenceById(id));
     }
 }
