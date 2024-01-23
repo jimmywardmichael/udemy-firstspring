@@ -74,7 +74,7 @@ private List<Project> projects;
     }
      public void removeProject(Project project){
         this.projects.remove(project);
-        project.getEmployees().remove(project);
+        project.getEmployees().remove(this);
     }
     public void addProject(Project project){
         this.projects.add(project);
